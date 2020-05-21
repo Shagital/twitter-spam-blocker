@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "GTmetrix Analyzer Plugin",
-  "description": "This extension will analyze a page using GTmetrix",
+  "name": "Netflix Movie Suggest",
+  "description": "This extension will analyze your viewing history and use it to suggest movies for you",
   "version": "1.0",
 
   "browser_action": {
@@ -12,5 +12,14 @@
   "permissions": [
     "activeTab",
     "*://*.netflix.com/*"
+  ],
+  "content_scripts":
+  [
+    {
+      "matches":["*://*.netflix.com/*"],
+      "js":["jquery.js", "script.js"],
+      "css": ["bootstrap.css"],
+      "run_at": "document_end"
+    }
   ]
 }
