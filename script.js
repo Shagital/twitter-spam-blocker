@@ -18,8 +18,8 @@ function sortItems() {
     $wrapper.show();
 
     $wrapper.find('a').sort(function (a, b) {
-        return +a.dataset.percentage - +b.dataset.percentage;
-    })
+            return +a.dataset.percentage - +b.dataset.percentage;
+        })
         .appendTo($wrapper);
 
     // only leave 5 items present, remove the rest
@@ -34,3 +34,13 @@ function sortItems() {
 
 
 }
+$('.big-desc').hide();
+$('#checkPage').click(function () {
+    $(this).css('display', 'none')
+    $('.loader').css('display', 'block');
+})
+$('#more').click(function () {
+    console.log('nothing')
+    alert('Fuck the world');
+    $('.big-desc').slideToggle();
+})

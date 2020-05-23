@@ -1,6 +1,5 @@
 const API_KEY = '7268ce09beb78674bc76ffde9a9afb03';
-const genres = [
-    {
+const genres = [{
         "id": 28,
         "name": "Action"
     },
@@ -80,7 +79,7 @@ const genres = [
 const SUGGESTED = 1;
 const VIEWED = 2;
 const BASE_URL = "https://netflix.com";
-
+// $('.big-desc').hide();
 document.addEventListener('DOMContentLoaded', () => {
     // we want to pre-fetch the suggested movies so it's available once user clicks the button
     chrome.tabs.getSelected(null, (tab) => {
@@ -91,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // console.log('fetching viewing history');
             new NeflixSuggest().getSuggestedAndViewingHistory().then(r => {
                 console.log('say something nice');
+                $('.loader').css('display', 'none');
             })
         }
     });
@@ -269,13 +269,34 @@ class NeflixSuggest {
     }
 
     enrichHTML(index) {
-        let html = ` <a id="netflix-item-${this.suggestedMovies[index].id}" data-percentage="${parseInt(this.suggestedMovies[index].matches)}" target="_blank" rel="nofollow" href="${this.suggestedMovies[index].url}"><div class="col-xs-3">
-            <figure>
-                <img src="${this.suggestedMovies[index].banner}" alt="${this.suggestedMovies[index].title}">
-                
-                <figcaption>${this.suggestedMovies[index].title} (${this.suggestedMovies[index].type})</figcaption>
-            </figure>
-        </div></a>`;
+        // let html = ` <a id="netflix-item-${this.suggestedMovies[index].id}" data-percentage="${parseInt(this.suggestedMovies[index].matches)}" target="_blank" rel="nofollow" href="${this.suggestedMovies[index].url}"><div class="col-xs-3">
+        //     <figure>
+        //         <img src="${this.suggestedMovies[index].banner}" alt="${this.suggestedMovies[index].title}">
+
+        //         <figcaption>${this.suggestedMovies[index].title} (${this.suggestedMovies[index].type})</figcaption>
+        //     </figure>
+        // </div></a>`;
+        let html = `
+        <div class="main">
+            <div class="wrapper">
+                <div class="movie-image" id="netflix-item-${this.suggestedMovies[index].id}">
+                    <img src="${this.suggestedMovies[index].banner}" alt="${this.suggestedMovies[index].title}">
+                </div>
+                <div class="movie-details">
+                    <h4>${this.suggestedMovies[index].title}</h4>
+                    <h6 class="genre">${this.suggestedMovies[index] && this.suggestedMovies[index].meta ? this.suggestedMovies[index].meta.genres.slice(0,3).map(s => s.name).join(',') : 'No Available Casts'} </h6>
+                    <h6 class="short-desc">${this.suggestedMovies[index].meta && this.suggestedMovies[index].meta.overview ? this.suggestedMovies[index].meta.overview.length > 70 ? this.suggestedMovies[index].meta.overview.substring(0, 70) + "<span style='color:#D81F26' id='more'>...Read Full</span>": this.suggestedMovies[index].meta.overview : 'Not Available' } </h6>
+                </div>
+            </div>
+            <div class="big-desc">
+                ${this.suggestedMovies[index].meta.overview}
+            </div>
+        </div>
+        `
+        console.log($('.short-desc'))
+        $('.short-desc').on('click',function() {
+            alert('Nothing happening');
+        });
 
         let contentArea = document.getElementById('netflix-content');
         contentArea.innerHTML += html;
@@ -323,9 +344,9 @@ class NeflixSuggest {
             .then(res => res.json())
             .then(response => {
                 if (
-                    response.results
-                    && response.results[0]
-                    && response.results[0].id
+                    response.results &&
+                    response.results[0] &&
+                    response.results[0].id
                 ) {
                     return response.results[0].id
                 }

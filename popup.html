@@ -1,20 +1,174 @@
 <!doctype html>
 <html>
+
 <head>
     <title>Netflix Suggest</title>
-    <link href="bootstrap.css" rel="stylesheet">
+    <!-- <link href="bootstrap.css" rel="stylesheet"> -->
     <script src="popup.js"></script>
     <script src="jquery.js"></script>
+    <style>
+        @font-face {
+            font-family: 'inter';
+            font-style: normal;
+            /* font-weight: 700; */
+            src: url(fonts/Inter.ttf);
+        }
+
+        *,
+        body {
+            font-family: 'inter', Courier, monospace;
+        }
+
+        .container {
+            width: 300px;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header-wrapper {
+            display: flex;
+            flex-direction: row;
+            flex-basis: initial;
+            justify-content: space-between;
+        }
+
+        .content-wrapper>h4 {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        button.btn {
+            background: #D81F26;
+            width: 100%;
+            height: 40px;
+            border: 0px;
+            outline: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 13px;
+        }
+
+        button.btn:hover {
+            opacity: .8;
+        }
+
+        .suggest {
+            text-align: center;
+        }
+
+        .suggest .loader {
+            margin-top: 20px;
+        }
+
+        svg path,
+        svg rect {
+            fill: #D81F26;
+        }
+
+        .loader {
+            display: none;
+        }
+
+        .main {
+            display: grid;
+            margin-bottom: 20px;
+        }
+
+        .main .big-desc {
+            line-height: 17px;
+            margin-top: 3px;
+        }
+
+        .wrapper {
+            display: grid;
+            grid-template-columns: 40% 60% !important;
+            background: #F7F7F7;
+            padding-top: 14px;
+            padding-left: 5px;
+            padding-right: 5px;
+            cursor: pointer;
+        }
+
+        .movie-image img {
+            width: 100%;
+        }
+
+        .movie-details h4 {
+            margin-top: 0;
+            padding-left: 10px;
+            font-size: 14px;
+            font-weight: bolder;
+        }
+
+        .movie-details h6 {
+            margin-top: -10px;
+            font-size: 10px;
+            white-space: none;
+            padding-left: 10px;
+        }
+
+        .movie-details h6.genre {
+            color: #D81F26;
+            font-weight: 700;
+        }
+
+        .movie-details h6.short-desc {
+            margin-top: -20px;
+            color: #4A4A4A;
+        }
+    </style>
 </head>
+
 <body>
-<div class="container">
-    <h4>Suggested Shows/Movies</h4>
-    <button id="checkPage" class="btn btn-primary btn-lg btn-block">See Suggestions</button>
-    <hr>
-    <div class="row text-center" id="netflix-content" style="display: none">
+    <div class="container">
+        <div>
+            <div class="header-wrapper">
+                <div class="h-title">
+                    <img src="logo.png" style="width:100px" />
+                </div>
+                <div class="h-link">About</div>
+            </div>
+        </div>
+        <div class="content-wrapper">
+            <h4>Top Picks from Viewing History</h4>
+            <div class="suggest">
+                <button id="checkPage" class="btn">See Suggestions</button>
+                <div class="loader loader--style4" title="3">
+                    <svg fill="#D81F26" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px"
+                        viewBox="0 0 24 24" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                        <rect x="0" y="0" width="4" height="7" fill="#333">
+                            <animateTransform attributeType="xml" attributeName="transform" type="scale"
+                                values="1,1; 1,3; 1,1" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                        </rect>
+
+                        <rect x="10" y="0" width="4" height="7" fill="#333">
+                            <animateTransform attributeType="xml" attributeName="transform" type="scale"
+                                values="1,1; 1,3; 1,1" begin="0.2s" dur="0.6s" repeatCount="indefinite" />
+                        </rect>
+                        <rect x="20" y="0" width="4" height="7" fill="#333">
+                            <animateTransform attributeType="xml" attributeName="transform" type="scale"
+                                values="1,1; 1,3; 1,1" begin="0.4s" dur="0.6s" repeatCount="indefinite" />
+                        </rect>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="row text-center" id="netflix-content" style="display: none">
+
+            </div>
+        </div>
 
     </div>
-</div>
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
