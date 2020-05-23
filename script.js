@@ -39,8 +39,15 @@ $('#checkPage').click(function () {
     $(this).css('display', 'none')
     $('.loader').css('display', 'block');
 })
-$('#more').click(function () {
-    console.log('nothing')
-    alert('Fuck the world');
-    $('.big-desc').slideToggle();
+$(".h-link, .close").click(function () {
+    $('.ovly').toggle();
 })
+$(document).on('click', '.short-desc', function () {
+    //get id of short desc and remove s-
+    let descId = $(this).attr("id");
+    descId = descId.substring('2')
+    fullDesc = '#b-' + descId;
+    console.log($(fullDesc))
+    $(fullDesc).toggle();
+
+});

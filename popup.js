@@ -280,23 +280,28 @@ class NeflixSuggest {
         <div class="main">
             <div class="wrapper">
                 <div class="movie-image" id="netflix-item-${this.suggestedMovies[index].id}">
-                    <img src="${this.suggestedMovies[index].banner}" alt="${this.suggestedMovies[index].title}">
+                <a id="netflix-item-${this.suggestedMovies[index].id}" data-percentage="${parseInt(this.suggestedMovies[index].matches)}" target="_blank" rel="nofollow" href="${this.suggestedMovies[index].url}" href="#" style="text-decoration: none;color: #D81F26;"><img src="${this.suggestedMovies[index].banner}" alt="${this.suggestedMovies[index].title}"></a>
                 </div>
                 <div class="movie-details">
-                    <h4>${this.suggestedMovies[index].title}</h4>
-                    <h6 class="genre">${this.suggestedMovies[index] && this.suggestedMovies[index].meta ? this.suggestedMovies[index].meta.genres.slice(0,3).map(s => s.name).join(',') : 'No Available Casts'} </h6>
-                    <h6 class="short-desc">${this.suggestedMovies[index].meta && this.suggestedMovies[index].meta.overview ? this.suggestedMovies[index].meta.overview.length > 70 ? this.suggestedMovies[index].meta.overview.substring(0, 70) + "<span style='color:#D81F26' id='more'>...Read Full</span>": this.suggestedMovies[index].meta.overview : 'Not Available' } </h6>
+                <a id="netflix-item-${this.suggestedMovies[index].id}" data-percentage="${parseInt(this.suggestedMovies[index].matches)}" target="_blank" rel="nofollow" href="${this.suggestedMovies[index].url}" href="#" style="text-decoration: none;color: black;"><h4>${this.suggestedMovies[index].title}</h4></a>
+                    <h6 class="genre">${this.suggestedMovies[index] && this.suggestedMovies[index].meta ? this.suggestedMovies[index].meta.genres.slice(0,3).map(s => s.name).join(' , ') : 'No Available Casts'} </h6>
+                    <h6 id="s-${index}" class="short-desc">${this.suggestedMovies[index].meta && this.suggestedMovies[index].meta.overview ? this.suggestedMovies[index].meta.overview.length > 70 ? this.suggestedMovies[index].meta.overview.substring(0, 70) + "<span style='color:#D81F26' id='more'>...Read Full</span>": this.suggestedMovies[index].meta.overview : 'Not Available' } </h6>
                 </div>
             </div>
-            <div class="big-desc">
+            <div class="big-desc" style="display:none" id="b-${index}">
+                <h5 id="caption" style="margin-top: 5px;margin-bottom: 5px;">Movie Overview </h5>
                 ${this.suggestedMovies[index].meta.overview}
+                <p>
+                    <h5 id="caption" style="margin-top: 5px;margin-bottom: 5px; color:#D81F26">Casts</h5>
+                    ${this.suggestedMovies[index].casts.map((s) => {
+                            return s.name;
+                    })}
+                    
+                </p>
+                <a id="netflix-item-${this.suggestedMovies[index].id}" data-percentage="${parseInt(this.suggestedMovies[index].matches)}" target="_blank" rel="nofollow" href="${this.suggestedMovies[index].url}" href="#" style="text-decoration: none;color: #D81F26;" class="watch"><span>Watch Movie</span></a>
             </div>
         </div>
         `
-        console.log($('.short-desc'))
-        $('.short-desc').on('click',function() {
-            alert('Nothing happening');
-        });
 
         let contentArea = document.getElementById('netflix-content');
         contentArea.innerHTML += html;

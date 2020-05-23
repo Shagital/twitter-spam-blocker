@@ -85,6 +85,17 @@
         .main .big-desc {
             line-height: 17px;
             margin-top: 3px;
+            background: #FDF7F7;
+            padding: 10px;
+            padding-bottom: 20px !important;
+        }
+
+        .main .big-desc #caption {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-weight: bolder;
+            text-transform: uppercase;
+            font-family: arial;
         }
 
         .wrapper {
@@ -123,18 +134,111 @@
         .movie-details h6.short-desc {
             margin-top: -20px;
             color: #4A4A4A;
+            line-height: 16px;
+        }
+
+        .h-link>a {
+            text-decoration: none !important;
+            color: black;
+            font-size: 13px;
+            padding-top: 3px;
+        }
+
+        .h-link>a span {
+            padding-top: 10px;
+        }
+
+        .h-link>a::before {
+            content: "";
+            position: absolute;
+            transform: translate(-15px, -3px);
+            height: 25px;
+            width: 10px;
+            background: #E4E4E4;
+            border-radius: 2px;
+            z-index: -1;
+            transition: width .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+        .h-link>a:hover::before {
+            width: 60px;
+            background: #D81F26;
+            transition: width .3s cubic-bezier(0.075, 0.82, 0.165, 1), background .7s ease-out;
+        }
+
+        .h-link>a:hover {
+            color: white;
+            transition: color .5s cubic-bezier(0.075, 0.82, 0.165, 1)
+        }
+
+        .footer {
+            display: flex;
+            position: absolute;
+            /* bottom: 0; */
+            margin-bottom: 10px;
+            text-align: center;
+            width: max-content;
+            /* align-items: center; */
+            /* justify-content: left; */
+            opacity: .6;
+            right: 0;
+            margin-right: 23px;
+            height: auto;
+            padding-top: 10px;
+        }
+
+        .ovly {
+            background: #F7F7F7;
+            position: absolute;
+            width: 100%;
+            margin-left: 0;
+            left: 0;
+            height: 100%;
+            top: 0;
+            z-index: 2;
+            padding: 10px;
+            padding-right: 20px;
+            display: none;
+        }
+
+        .ovly p {
+            padding-right: 10px;
+            /* padding-right: 10px; */
+            opacity: .7;
+
+        }
+
+        .ovly .close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin-right: 50px;
+            margin-top: 25px;
+            color: #D81F26;
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
+        <div class="ovly">
+            <h3>About Netflix Suggest Plugin</h3>
+            <span class="close">Close</span>
+            <p>
+                This extension will analyze your viewing history and use it to suggest movies for you.
+            </p>
+            <p>
+                The Plugin is created by @djunehor and @thekofacts. If there are any complaints whatsoever, don't
+                hesistate to send a mail, or dm using the accounts lorem lorem lorem fklslk
+            </p>
+        </div>
         <div>
             <div class="header-wrapper">
                 <div class="h-title">
                     <img src="logo.png" style="width:100px" />
                 </div>
-                <div class="h-link">About</div>
+                <div class="h-link"><a href="#"><span>About</span></a></div>
             </div>
         </div>
         <div class="content-wrapper">
@@ -164,6 +268,10 @@
 
             <div class="row text-center" id="netflix-content" style="display: none">
 
+            </div>
+
+            <div class="footer">
+                <small>Netflix Chrome Suggestion - version 1.0</small>
             </div>
         </div>
 
