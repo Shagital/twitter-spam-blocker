@@ -277,13 +277,13 @@ class NeflixSuggest {
         //     </figure>
         // </div></a>`;
         let html = `
-        <div class="main">
+        <div class="main" id="netflix-item-${this.suggestedMovies[index].id}" data-percentage="${parseInt(this.suggestedMovies[index].matches)}">
             <div class="wrapper">
-                <div class="movie-image" id="netflix-item-${this.suggestedMovies[index].id}">
+                <div class="movie-image" >
                 <a id="netflix-item-${this.suggestedMovies[index].id}" data-percentage="${parseInt(this.suggestedMovies[index].matches)}" target="_blank" rel="nofollow" href="${this.suggestedMovies[index].url}" href="#" style="text-decoration: none;color: #D81F26;"><img src="${this.suggestedMovies[index].banner}" alt="${this.suggestedMovies[index].title}"></a>
                 </div>
                 <div class="movie-details">
-                <a id="netflix-item-${this.suggestedMovies[index].id}" data-percentage="${parseInt(this.suggestedMovies[index].matches)}" target="_blank" rel="nofollow" href="${this.suggestedMovies[index].url}" href="#" style="text-decoration: none;color: black;"><h4>${this.suggestedMovies[index].title}</h4></a>
+                <a target="_blank" rel="nofollow" href="${this.suggestedMovies[index].url}" href="#" style="text-decoration: none;color: black;"><h4>${this.suggestedMovies[index].title}</h4></a>
                     <h6 class="genre">${this.suggestedMovies[index] && this.suggestedMovies[index].meta ? this.suggestedMovies[index].meta.genres.slice(0,3).map(s => s.name).join(' , ') : 'No Available Casts'} </h6>
                     <h6 id="s-${index}" class="short-desc">${this.suggestedMovies[index].meta && this.suggestedMovies[index].meta.overview ? this.suggestedMovies[index].meta.overview.length > 70 ? this.suggestedMovies[index].meta.overview.substring(0, 70) + "<span style='color:#D81F26' id='more'>...Read Full</span>": this.suggestedMovies[index].meta.overview : 'Not Available' } </h6>
                 </div>
