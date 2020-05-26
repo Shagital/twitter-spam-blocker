@@ -1,5 +1,6 @@
 const API_KEY = '7268ce09beb78674bc76ffde9a9afb03';
-const genres = [{
+const genres = [
+    {
         "id": 28,
         "name": "Action"
     },
@@ -79,18 +80,18 @@ const genres = [{
 const SUGGESTED = 1;
 const VIEWED = 2;
 const BASE_URL = "https://netflix.com";
-// $('.big-desc').hide();
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // we want to pre-fetch the suggested movies so it's available once user clicks the button
     chrome.tabs.getSelected(null, (tab) => {
         let url = tab.url;
-        // console.log('Current URL: ', url);
+        // we only want to re-fetch if something has changed i.e tab has been closed or cache cleared
         if (url.indexOf('netflix.com') !== -1) {
-            localStorage.setItem('fetching', true);
             // console.log('fetching viewing history');
             new NeflixSuggest().getSuggestedAndViewingHistory().then(r => {
-                console.log('say something nice');
                 $('.loader').css('display', 'none');
+                //localStorage.setItem('netflix_suggest_fetched', true);
             })
         }
     });
@@ -98,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkPageButton = document.getElementById('checkPage');
     checkPageButton.addEventListener('click', () => {
         checkPageButton.setAttribute('disabled', true);
+        //localStorage.removeItem('netflix_suggest_fetched');
 
         // now we can show what we have
         sortItems();
@@ -114,7 +116,7 @@ class NeflixSuggest {
     async getSuggestedAndViewingHistory() {
         await this.fetchViewingHistory().then(async () => {
             await this.fetchSuggestedMovies().then(async () => {
-                console.log('love me jeje')
+                // console.log('Done fetching....')
             });
         });
 
@@ -196,7 +198,7 @@ class NeflixSuggest {
     }
 
     fetchSuggestedMovies() {
-        console.log(`Fetching Suggested...`);
+        // console.log(`Fetching Suggested...`);
         return fetch('https://www.netflix.com/browse')
             .then((response) => {
                 // When the page is loaded convert it to text
@@ -212,7 +214,7 @@ class NeflixSuggest {
                 let doc = parser.parseFromString(html, "text/html");
 
                 // scroll to bottom
-                console.log(`Infinite Scroll...`);
+                // console.log(`Infinite Scroll...`);
                 this.infiniteScroll(doc);
                 await this.parseSuggestMovies(doc)
             })
@@ -222,7 +224,7 @@ class NeflixSuggest {
     }
 
     parseSuggestMovies(dom) {
-        console.log('Parsing suggested movies...');
+        // console.log('Parsing suggested movies...');
 
         let items = dom.getElementsByClassName('slider-item');
 

@@ -1,13 +1,24 @@
 {
-  "manifest_version": 2,
-
   "name": "Netflix Movie Suggest",
   "description": "This extension will analyze your viewing history and use it to suggest movies for you",
   "version": "1.0",
+  "short_name":"RecordRTC",
+  "author": "Obodugo Rapheal, Zacchaeus Bolaji",
+  "manifest_version":2,
+  "minimum_chrome_version":"49",
+  "homepage_url":"https://obodugorapheal.dev",
 
   "browser_action": {
     "default_icon": "icon.png",
+    "default_title": "Get the best suggested movies based on your viewing history",
     "default_popup": "popup.html"
+  },
+  "icons":{
+    "16":"icon.png",
+    "22":"icon.png",
+    "32":"icon.png",
+    "48":"icon.png",
+    "128":"icon.png"
   },
   "permissions": [
     "activeTab",

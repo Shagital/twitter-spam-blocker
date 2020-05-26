@@ -1,5 +1,4 @@
 function sortItems() {
-    console.log('sorting...')
     var items = $('#netflix-content > div.main')
     for (let item of items) {
         let id = item.id
@@ -18,8 +17,8 @@ function sortItems() {
     $wrapper.show();
 
     $wrapper.find('div.main').sort(function (a, b) {
-            return +a.dataset.percentage - +b.dataset.percentage;
-        })
+        return +a.dataset.percentage - +b.dataset.percentage;
+    })
         .appendTo($wrapper);
 
     // only leave 5 items present, remove the rest
@@ -47,7 +46,7 @@ $(document).on('click', '.short-desc', function () {
     let descId = $(this).attr("id");
     descId = descId.substring('2')
     let fullDesc = '#b-' + descId;
-    console.log($(fullDesc))
+
     $(fullDesc).toggle();
 
 });
