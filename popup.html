@@ -1,0 +1,361 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Instagram Web</title>
+    <!-- <link href="bootstrap.css" rel="stylesheet"> -->
+    <script src="popup.js"></script>
+    <style>
+        @font-face {
+            font-family: 'inter';
+            font-style: normal;
+            /* font-weight: 700; */
+        }
+
+        *,
+        body {
+            font-family: 'inter', Courier, monospace;
+        }
+
+        .container {
+            width: 300px;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .header-wrapper {
+            display: flex;
+            flex-direction: row;
+            flex-basis: initial;
+            justify-content: space-between;
+        }
+
+        .content-wrapper {
+            border-top: 1px solid #F7F7F7;
+            border-bottom: 1px solid #F7F7F7;
+            position: absolute;
+            left: 0;
+            padding-left: 0;
+            margin-top: 20px;
+        }
+
+        .content-wrapper>h4 {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        button.btn {
+            background: #D81F26;
+            width: 100%;
+            height: 40px;
+            border: 0px;
+            outline: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 13px;
+        }
+
+        button.btn:hover {
+            opacity: .8;
+        }
+
+        .suggest {
+            text-align: center;
+        }
+
+        .suggest .loader {
+            margin-top: 20px;
+        }
+
+        svg path,
+        svg rect {
+            fill: #D81F26;
+        }
+
+        .loader {
+            display: none;
+        }
+
+        .main {
+            display: grid;
+            margin-bottom: 20px;
+        }
+
+        .main .big-desc {
+            line-height: 17px;
+            margin-top: 3px;
+            background: #FDF7F7;
+            padding: 10px;
+            padding-bottom: 20px !important;
+        }
+
+        .main .big-desc #caption {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-weight: bolder;
+            text-transform: uppercase;
+            font-family: arial;
+        }
+
+        .wrapper {
+            display: grid;
+            grid-template-columns: 40% 60% !important;
+            background: #F7F7F7;
+            padding-top: 14px;
+            padding-left: 5px;
+            padding-right: 5px;
+            cursor: pointer;
+        }
+
+        .movie-image img {
+            width: 100%;
+        }
+
+        .movie-details h4 {
+            margin-top: 0;
+            padding-left: 10px;
+            font-size: 14px;
+            font-weight: bolder;
+        }
+
+        .movie-details h6 {
+            margin-top: -10px;
+            font-size: 10px;
+            white-space: none;
+            padding-left: 10px;
+        }
+
+        .movie-details h6.genre {
+            color: #D81F26;
+            font-weight: 700;
+        }
+
+        .movie-details h6.short-desc {
+            margin-top: -20px;
+            color: #4A4A4A;
+            line-height: 16px;
+        }
+
+        .h-link>a {
+            text-decoration: none !important;
+            color: black;
+            font-size: 13px;
+            padding-top: 3px;
+        }
+
+        .h-link>a span {
+            padding-top: 10px;
+        }
+
+        .h-link>a::before {
+            content: "";
+            position: absolute;
+            transform: translate(-15px, -3px);
+            height: 25px;
+            width: 10px;
+            background: #E4E4E4;
+            border-radius: 2px;
+            z-index: -1;
+            transition: width .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+        .h-link>a:hover::before {
+            width: 60px;
+            background: #F81201;
+            transition: width .3s cubic-bezier(0.075, 0.82, 0.165, 1), background .7s ease-out;
+        }
+
+        .h-link>a:hover {
+            color: white;
+            transition: color .5s cubic-bezier(0.075, 0.82, 0.165, 1)
+        }
+
+        .footer {
+            display: flex;
+            position: absolute;
+            /* bottom: 0; */
+            margin-bottom: 10px;
+            text-align: center;
+            width: max-content;
+            /* align-items: center; */
+            /* justify-content: left; */
+            opacity: .6;
+            right: 0;
+            margin-right: 23px;
+            height: auto;
+            padding-top: 10px;
+        }
+
+        .ovly {
+            background: #F7F7F7;
+            position: absolute;
+            width: 100%;
+            margin-left: 0;
+            left: 0;
+            height: 100%;
+            top: 0;
+            z-index: 2;
+            padding: 10px;
+            padding-right: 20px;
+            display: none;
+        }
+
+        .ovly p {
+            padding-right: 10px;
+            /* padding-right: 10px; */
+            opacity: .7;
+
+        }
+
+        .ovly .close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin-right: 50px;
+            margin-top: 25px;
+            color: #D81F26;
+            cursor: pointer;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: #2196F3;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        .toggle-box {
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+            flex-direction: row;
+            margin: 0 auto;
+            border: 1px solid #F81201;
+        }
+
+        .toggle-box>span {
+            padding: 20px;
+            text-align: center;
+            width: 40%;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .toggle-box>span.active {
+            background: #F81201;
+            color: white;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="ovly">
+            <h3>About Instagram Web Plugin</h3>
+            <span class="close">Close</span>
+            <p>
+                This extension lets you post contents from web.
+            </p>
+
+        </div>
+        <div>
+            <div class="header-wrapper">
+                <div class="h-title">
+                    <img src="logo.png" style="width:70px" />
+                </div>
+                <div class="h-link"><a href="#"><span>About</span></a></div>
+            </div>
+        </div>
+        <div class="content-wrapper">
+            <p style="margin-top:20px; padding-left:15px">
+                <span style="opacity:.6; line-height:22px">Experience instagram mobile or web features  by
+                    switching to your preferred mode with the toggle below.</span>
+            </p>
+            <hr style="border: .1px solid #F7F7F7;">
+            <div class="suggest" style="margin-top:20px; margin-bottom:20px">
+                <!-- Web <label class="switch">
+                    <input id="checkPage" type="checkbox">
+                    <span class="slider round"></span>
+                </label> Mobile -->
+
+                <div class="toggle-box">
+                    <span id="sw" data-name="web" class="">Web</span>
+                    <span id="sw" data-name="mobile" class="sw">Mobile</span>
+                </div>
+            </div>
+
+
+            <div class="footer">
+                <small>Instagram Web - version 1.0</small>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

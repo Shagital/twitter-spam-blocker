@@ -1,0 +1,35 @@
+{
+  "name": "Instagram Mobile Web",
+  "description": "This extension lets you post contents from web",
+  "version": "1.0",
+  "short_name":"instaWeb",
+  "author": "Obodugo Rapheal, Zacchaeus Bolaji",
+  "manifest_version":2,
+  "minimum_chrome_version":"49",
+  "homepage_url":"https://obodugo.com",
+
+  "icons":{
+    "16":"icon.png"
+  },
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "*://*.instagram.com/*"
+  ],
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "Instagram Mobile Web",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "content_scripts": [{
+    "matches": ["*://*.instagram.com/*"],
+    "js": ["script.js"],
+    "run_at": "document_start"
+  }]
+}
