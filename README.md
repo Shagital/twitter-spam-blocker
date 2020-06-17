@@ -1,2 +1,2 @@
-# Instagram Web
-This Chrome extension adds the missing icons to instagram web. Just install - no settings required
+# twitter-spam-blocker
+A Chrome extension that helps hide/remove unwanted contents from your twitter feed
