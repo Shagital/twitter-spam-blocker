@@ -53,6 +53,18 @@
 
                 <hr>
 
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="block_tweet">
+                    <label class="form-check-label" for="block_tweet">Block Tweets</label>
+                </div>
+
+                <div id="block_tweet_form" class="form-group" style="display: none">
+                    <label for="block_regex">Tweet Block Regex</label>
+                    <input class="form-control" id="block_regex">
+                </div>
+
+                <hr>
+
                 <label for="hide_delete">Block Type</label>
                 <select id="hide_delete" class="form-control">
                     <option value="1">Delete</option>
@@ -65,6 +77,7 @@
             <div id="info" class="alert alert-info" style="display: none;">Loading...</div>
             <div id="error" class="alert alert-danger" style="display: none;">Failed to save...</div>
             <div id="success" class="alert alert-success" style="display: none;">Settings saved...</div>
+            <br>
         </div>
     </div>
 </section>
