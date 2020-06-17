@@ -76,7 +76,7 @@ $(document).ready(function () {
 });
 
 chrome.storage.onChanged.addListener(function (changes, namespace) {
-    console.warn('Something Changed')
+    //console.warn('Something Changed')
     for (var key in changes) {
         if (key === 'twitter_block') {
             window.close();
