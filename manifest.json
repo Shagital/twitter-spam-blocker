@@ -1,5 +1,5 @@
 {
-  "name": "Netflix Movie Suggest",
+  "name": "Twitter Blocker",
   "description": "This extension will analyze your viewing history and use it to suggest movies for you",
   "version": "1.0",
   "short_name":"RecordRTC",
@@ -8,28 +8,22 @@
   "minimum_chrome_version":"49",
   "homepage_url":"https://obodugorapheal.dev",
 
+  "icons":{
+    "16":"icon.png"
+  },
+  "permissions": [ "tabs", "activeTab", "declarativeContent", "storage",  "contextMenus" ],
+  "content_scripts": [ {
+    "js": [ "jquery.js", "script.js" ],
+    "matches": [ "*://*.twitter.com/*" ],
+    "run_at": "document_end"
+  } ],
   "browser_action": {
     "default_icon": "icon.png",
-    "default_title": "Get the best suggested movies based on your viewing history",
+    "default_title": "Twitter Blocker",
     "default_popup": "popup.html"
   },
-  "icons":{
-    "16":"icon.png",
-    "22":"icon.png",
-    "32":"icon.png",
-    "48":"icon.png",
-    "128":"icon.png"
-  },
-  "permissions": [
-    "activeTab",
-    "*://*.netflix.com/*"
-  ],
-  "content_scripts": [{
-    "matches": ["*://*.netflix.com/*"],
-    "js": ["jquery.js", "script.js"],
-    "run_at": "document_end"
-  }],
-  "web_accessible_resources": [
-    "fonts/Inter.ttf"
-  ]
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  }
 }

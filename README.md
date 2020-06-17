@@ -1,2 +1,2 @@
-# netflix-suggest
-A Chrome extension to suggest netflix movies based on user viewing history
+# twitter-spam-blocker
+A Chrome extension that helps hide/remove unwanted contents from your twitter feed

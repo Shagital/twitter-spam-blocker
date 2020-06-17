@@ -2,281 +2,71 @@
 <html>
 
 <head>
-    <title>Netflix Suggest</title>
-    <!-- <link href="bootstrap.css" rel="stylesheet"> -->
-    <script src="popup.js"></script>
+    <title>Twitter Blocker</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="bootstrap.css" rel="stylesheet" media="screen">
     <script src="jquery.js"></script>
-    <style>
-        @font-face {
-            font-family: 'inter';
-            font-style: normal;
-            /* font-weight: 700; */
-            src: url(fonts/Inter.ttf);
-        }
-
-        *,
-        body {
-            font-family: 'inter', Courier, monospace;
-        }
-
-        .container {
-            width: 300px;
-            padding-right: 15px;
-            padding-left: 15px;
-            margin-right: auto;
-            margin-left: auto;
-            margin-top: 20px;
-            margin-bottom: 30px;
-        }
-
-        .header-wrapper {
-            display: flex;
-            flex-direction: row;
-            flex-basis: initial;
-            justify-content: space-between;
-        }
-
-        .content-wrapper>h4 {
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        button {
-            cursor: pointer;
-        }
-
-        button.btn {
-            background: #D81F26;
-            width: 100%;
-            height: 40px;
-            border: 0px;
-            outline: none;
-            border-radius: 4px;
-            color: white;
-            font-size: 13px;
-        }
-
-        button.btn:hover {
-            opacity: .8;
-        }
-
-        .suggest {
-            text-align: center;
-        }
-
-        .suggest .loader {
-            margin-top: 20px;
-        }
-
-        svg path,
-        svg rect {
-            fill: #D81F26;
-        }
-
-        .loader {
-            display: none;
-        }
-
-        .main {
-            display: grid;
-            margin-bottom: 20px;
-        }
-
-        .main .big-desc {
-            line-height: 17px;
-            margin-top: 3px;
-            background: #FDF7F7;
-            padding: 10px;
-            padding-bottom: 20px !important;
-        }
-
-        .main .big-desc #caption {
-            margin-top: 5px;
-            margin-bottom: 5px;
-            font-weight: bolder;
-            text-transform: uppercase;
-            font-family: arial;
-        }
-
-        .wrapper {
-            display: grid;
-            grid-template-columns: 40% 60% !important;
-            background: #F7F7F7;
-            padding-top: 14px;
-            padding-left: 5px;
-            padding-right: 5px;
-            cursor: pointer;
-        }
-
-        .movie-image img {
-            width: 100%;
-        }
-
-        .movie-details h4 {
-            margin-top: 0;
-            padding-left: 10px;
-            font-size: 14px;
-            font-weight: bolder;
-        }
-
-        .movie-details h6 {
-            margin-top: -10px;
-            font-size: 10px;
-            white-space: none;
-            padding-left: 10px;
-        }
-
-        .movie-details h6.genre {
-            color: #D81F26;
-            font-weight: 700;
-        }
-
-        .movie-details h6.short-desc {
-            margin-top: -20px;
-            color: #4A4A4A;
-            line-height: 16px;
-        }
-
-        .h-link>a {
-            text-decoration: none !important;
-            color: black;
-            font-size: 13px;
-            padding-top: 3px;
-        }
-
-        .h-link>a span {
-            padding-top: 10px;
-        }
-
-        .h-link>a::before {
-            content: "";
-            position: absolute;
-            transform: translate(-15px, -3px);
-            height: 25px;
-            width: 10px;
-            background: #E4E4E4;
-            border-radius: 2px;
-            z-index: -1;
-            transition: width .3s cubic-bezier(0.075, 0.82, 0.165, 1);
-        }
-
-        .h-link>a:hover::before {
-            width: 60px;
-            background: #D81F26;
-            transition: width .3s cubic-bezier(0.075, 0.82, 0.165, 1), background .7s ease-out;
-        }
-
-        .h-link>a:hover {
-            color: white;
-            transition: color .5s cubic-bezier(0.075, 0.82, 0.165, 1)
-        }
-
-        .footer {
-            display: flex;
-            position: absolute;
-            /* bottom: 0; */
-            margin-bottom: 10px;
-            text-align: center;
-            width: max-content;
-            /* align-items: center; */
-            /* justify-content: left; */
-            opacity: .6;
-            right: 0;
-            margin-right: 23px;
-            height: auto;
-            padding-top: 10px;
-        }
-
-        .ovly {
-            background: #F7F7F7;
-            position: absolute;
-            width: 100%;
-            margin-left: 0;
-            left: 0;
-            height: 100%;
-            top: 0;
-            z-index: 2;
-            padding: 10px;
-            padding-right: 20px;
-            display: none;
-        }
-
-        .ovly p {
-            padding-right: 10px;
-            /* padding-right: 10px; */
-            opacity: .7;
-
-        }
-
-        .ovly .close {
-            position: absolute;
-            top: 0;
-            right: 0;
-            margin-right: 50px;
-            margin-top: 25px;
-            color: #D81F26;
-            cursor: pointer;
-        }
-    </style>
+    <script src="popup.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <div class="ovly">
-            <h3>About Netflix Suggest Plugin</h3>
-            <span class="close">Close</span>
-            <p>
-                This extension will analyze your viewing history and use it to suggest movies for you.
-            </p>
-            <p>
-                The Plugin is created by @djunehor and @thekofacts. If there are any complaints whatsoever, don't
-                hesistate to send a mail, or dm using the accounts lorem lorem lorem fklslk
-            </p>
-        </div>
-        <div>
-            <div class="header-wrapper">
-                <div class="h-title">
-                    <img src="logo.png" style="width:100px" />
+<section style="width: 700px">
+    <div class="content">
+        <div class="container">
+            <form id="twform" action="#">
+
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="block_trend">
+                    <label class="form-check-label" for="block_trend">Block By Hashtag</label>
                 </div>
-                <div class="h-link"><a href="#"><span>About</span></a></div>
-            </div>
-        </div>
-        <div class="content-wrapper">
-            <h4>Top Picks from Viewing History</h4>
-            <div class="suggest">
-                <button id="checkPage" class="btn">See Suggestions</button>
-                <div class="loader loader--style4" title="3">
-                    <svg fill="#D81F26" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px"
-                        viewBox="0 0 24 24" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-                        <rect x="0" y="0" width="4" height="7" fill="#333">
-                            <animateTransform attributeType="xml" attributeName="transform" type="scale"
-                                values="1,1; 1,3; 1,1" begin="0s" dur="0.6s" repeatCount="indefinite" />
-                        </rect>
 
-                        <rect x="10" y="0" width="4" height="7" fill="#333">
-                            <animateTransform attributeType="xml" attributeName="transform" type="scale"
-                                values="1,1; 1,3; 1,1" begin="0.2s" dur="0.6s" repeatCount="indefinite" />
-                        </rect>
-                        <rect x="20" y="0" width="4" height="7" fill="#333">
-                            <animateTransform attributeType="xml" attributeName="transform" type="scale"
-                                values="1,1; 1,3; 1,1" begin="0.4s" dur="0.6s" repeatCount="indefinite" />
-                        </rect>
-                    </svg>
+                <div id="block_trend_form" class="form-group" style="display: none">
+                    <label for="blocked_words">Blocked Hashtags (separate by comma)</label>
+                    <textarea class="form-control" id="blocked_words" rows="3"></textarea>
                 </div>
-            </div>
 
-            <div class="row text-center" id="netflix-content" style="display: none">
+                <hr>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="block_category">
+                    <label class="form-check-label" for="block_category">Block By Category</label>
+                </div>
 
-            </div>
+                <div id="block_category_form" class="form-group" style="display: none">
+                    <label for="blocked_categories">Blocked Hashtag categories (separate by comma)</label>
+                    <textarea class="form-control" id="blocked_categories" rows="3"></textarea>
+                </div>
 
-            <div class="footer">
-                <small>Netflix Chrome Suggestion - version 1.0</small>
-            </div>
+                <hr>
+
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="block_location">
+                    <label class="form-check-label" for="block_location">Block By Location</label>
+                </div>
+
+                <div id="block_location_form" class="form-group" style="display: none">
+                    <label for="blocked_locations">Blocked Hashtag locations (separate by comma)</label>
+                    <textarea class="form-control" id="blocked_locations" rows="3"></textarea>
+                </div>
+
+                <hr>
+
+                <label for="hide_delete">Block Type</label>
+                <select id="hide_delete" class="form-control">
+                    <option value="1">Delete</option>
+                    <option value="2">Hide</option>
+                </select>
+                <hr>
+                <button class="btn btn-block btn-success" id="submitBtn" type="button">Save Setting</button>
+            </form>
+
+            <div id="info" class="alert alert-info" style="display: none;">Loading...</div>
+            <div id="error" class="alert alert-danger" style="display: none;">Failed to save...</div>
+            <div id="success" class="alert alert-success" style="display: none;">Settings saved...</div>
         </div>
-
     </div>
-    <script src="script.js"></script>
+</section>
 </body>
-
 </html>
