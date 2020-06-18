@@ -2,7 +2,7 @@ $(document).ready(function () {
     chrome.storage.local.get(['twitter_block'], function (object) {
         let twitter_block = object.twitter_block
 
-        let block_trend = twitter_block.block_hashtags || false
+        let block_trend = twitter_block.block_trend || false
         $('#block_trend').prop("checked", block_trend);
         let el = $(`#block_trend_form`)
         block_trend ? el.show() : el.hide();
