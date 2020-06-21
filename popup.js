@@ -1,4 +1,12 @@
 $(document).ready(function () {
+    // alert('Ok bummber');
+    var tags = new Tags('#blocked_words'); 
+    $('.select-item').click(function (e) {
+        // e.preventDefault();
+        let attr = $(this).attr('data-attr');
+        let id = '#dropdown' + attr;
+        // $(id).toggle();
+    })
     chrome.storage.local.get(['twitter_block'], function (object) {
         let twitter_block = object.twitter_block
 
@@ -99,4 +107,3 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
         }
     }
 });
-
