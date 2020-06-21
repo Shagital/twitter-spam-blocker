@@ -36,7 +36,7 @@ $(document).ready(function () {
         let hide_delete = twitter_block.hide_delete || false;
         $('#hide_delete').prop("checked", hide_delete);
 
-        $('#blocked_words').val(twitter_block.blocked_words);
+        // $('#blocked_words').val(twitter_block.blocked_words);
         // alert(twitter_block.block_words.split(","));
         // alert(typeof Object.entries(twitter_block.blocked_words);
         // console.log(twitter_block.blocked_words);
@@ -47,7 +47,7 @@ $(document).ready(function () {
     });
 
     $("#submitBtn").click(function (e) {
-        e.preventDefault();
+        // e.preventDefault();
         $('#info').show()
 
         let block_trend = $('#block_trend').is(":checked")
@@ -57,10 +57,11 @@ $(document).ready(function () {
 
         let block_regex = $('#block_regex').val()
         let blocked_words = $('#blocked_words').val()
+
         let blocked_categories = $('#blocked_categories').val()
         let blocked_locations = $('#blocked_locations').val()
-        let hide_delete = $('#hide_delete').val()
-
+        let hide_delete = $("input[name='hide_delete']:checked").val();
+        // alert(hide_delete);
         let block_twitter = {
             block_trend: !!(block_trend),
             hide_delete: !!(hide_delete),
@@ -72,6 +73,8 @@ $(document).ready(function () {
             blocked_categories: blocked_categories,
             blocked_locations: blocked_locations,
         }
+        console.log(block_twitter);
+        // alert("ok")
         chrome.storage.local.set({
             twitter_block: block_twitter
         });
