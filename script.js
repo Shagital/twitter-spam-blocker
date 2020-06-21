@@ -25,10 +25,6 @@ function checkAndStartWatching() {
     chrome.storage.local.get(['twitter_block'], function (object) {
         let twitter_block = object.twitter_block
 
-        blockTrendWord = twitter_block.block_trend || false;
-        blockLocation = twitter_block.block_location || false;
-        blockCategory = twitter_block.block_category || false;
-        blockTweet = twitter_block.block_tweet || false;
         blockTweetRegex = twitter_block.block_regex || '';
         deleteHide = twitter_block.hide_delete || 1;
 
@@ -44,9 +40,9 @@ function checkAndStartWatching() {
 
         regexObj = RegExp(blockTweetRegex);
         if (
-            (blockTrendWord && blockedTrendWords.length)
-            || (blockLocation && blockedLocations.length)
-            || (blockCategory && blockedCategories.length)
+            (blockedTrendWords.length)
+            || (blockedLocations.length)
+            || (blockedCategories.length)
         ) startWatching();
     });
 }
@@ -54,7 +50,7 @@ function checkAndStartWatching() {
 function startWatching() {
     window.setInterval(function () {
         grabTrends();
-        if (blockTweet) grabTweets();
+        grabTweets();
     }, 100);
 }
 
@@ -113,7 +109,7 @@ function deleteTweet(nodes) {
         let content = node.textContent.trim();
 
         //console.warn('regex', regexObj, 'text', 'result', content, regexObj.test(content))
-        if (regexObj.test(content)) {
+        if (blockTweetRegex && regexObj.test(content)) {
             if (deleteHide === 2) {
                 node.style.display = 'none'
             } else {
@@ -124,6 +120,13 @@ function deleteTweet(nodes) {
     }
 }
 
+function partialMatch(blockedTrendWords, content) {
+    for(let word of blockedTrendWords) {
+        if(word.includes(content) || content.includes(word)) return true;
+    }
+    return false
+}
+
 function deleteBlocked(nodes) {
     for (let node of nodes) {
         let content = node.textContent.trim().toLowerCase();
@@ -132,9 +135,9 @@ function deleteBlocked(nodes) {
         let category = getCategory(trendingText);
 
         if (
-            (blockTrendWord && blockedTrendWords.includes(content))
-            || (location && blockLocation && blockedLocations.includes(location))
-            || (category && blockCategory && blockedCategories.includes(category))
+            (partialMatch(blockedTrendWords, content))
+            || (location && blockedLocations.includes(location))
+            || (category && blockedCategories.includes(category))
         ) {
             if (deleteHide === 2) {
                 node.style.display = 'none'
