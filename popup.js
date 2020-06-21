@@ -3,7 +3,7 @@ $(document).ready(function () {
     var blocked_hashtags = new Tags('#blocked_words');
     var blocked_categories = new Tags('#blocked_categories');
     var blocked_locations = new Tags('#blocked_locations');
-    var block_regex = new Tags('#block_regex');
+
     $('.select-content').click(function (e) {
         // e.preventDefault();
         let attr = $(this).attr('data-attr');
@@ -13,47 +13,19 @@ $(document).ready(function () {
     chrome.storage.local.get(['twitter_block'], function (object) {
         let twitter_block = object.twitter_block
 
-        let block_trend = twitter_block.block_trend || false
-        $('#block_trend').prop("checked", block_trend);
-        let el = $(`#block_trend_form`)
-        block_trend ? el.show() : el.hide();
+        let hide_delete = twitter_block.hide_delete || 1;
+        hide_delete == 2 ? $('#hide').prop("checked", true) : $('#delete').prop("checked", true)
 
-        let block_category = twitter_block.block_category || false;
-        $('#block_category').prop("checked", block_category);
-        let el2 = $(`#block_category_form`)
-        block_category ? el2.show() : el2.hide();
 
-        let block_location = twitter_block.block_location || false;
-        $('#block_location').prop("checked", block_location);
-        let el3 = $(`#block_location_form`)
-        block_location ? el3.show() : el3.hide();
-
-        let block_tweet = twitter_block.block_tweet || false;
-        $('#block_tweet').prop("checked", block_tweet);
-        let el4 = $(`#block_tweet_form`)
-        block_tweet ? el4.show() : el4.hide();
-
-        let hide_delete = twitter_block.hide_delete || false;
-        $('#hide_delete').prop("checked", hide_delete);
-
-        // $('#blocked_words').val(twitter_block.blocked_words);
-        // alert(twitter_block.block_words.split(","));
-        // alert(typeof Object.entries(twitter_block.blocked_words);
-        // console.log(twitter_block.blocked_words);
         blocked_hashtags.addTags(twitter_block.blocked_words.split(','));
-        $('#blocked_categories').val(twitter_block.blocked_categories);
-        $('#blocked_locations').val(twitter_block.blocked_locations);
+        blocked_categories.addTags(twitter_block.blocked_categories.split(','));
+        blocked_locations.addTags(twitter_block.blocked_locations.split(','));
         $('#block_regex').val(twitter_block.block_regex);
     });
 
     $("#submitBtn").click(function (e) {
         // e.preventDefault();
         $('#info').show()
-
-        let block_trend = $('#block_trend').is(":checked")
-        let block_category = $('#block_category').is(":checked")
-        let block_location = $('#block_location').is(":checked")
-        let block_tweet = $('#block_tweet').is(":checked")
 
         let block_regex = $('#block_regex').val()
         let blocked_words = $('#blocked_words').val()
@@ -63,11 +35,7 @@ $(document).ready(function () {
         let hide_delete = $("input[name='hide_delete']:checked").val();
         // alert(hide_delete);
         let block_twitter = {
-            block_trend: !!(block_trend),
-            hide_delete: !!(hide_delete),
-            block_category: !!(block_category),
-            block_location: !!(block_location),
-            block_tweet: !!(block_tweet),
+            hide_delete: hide_delete,
             block_regex: block_regex,
             blocked_words: blocked_words,
             blocked_categories: blocked_categories,
@@ -88,25 +56,6 @@ $(document).ready(function () {
         }, 2000);
     });
 
-    $('#block_trend').change(function () {
-        let el = $(`#block_trend_form`)
-        $(this).is(':checked') ? el.show() : el.hide();
-    });
-
-    $('#block_location').change(function () {
-        let el = $(`#block_location_form`)
-        $(this).is(':checked') ? el.show() : el.hide();
-    });
-
-    $('#block_category').change(function () {
-        let el = $(`#block_category_form`)
-        $(this).is(':checked') ? el.show() : el.hide();
-    });
-
-    $('#block_tweet').change(function () {
-        let el = $(`#block_tweet_form`)
-        $(this).is(':checked') ? el.show() : el.hide();
-    });
 });
 
 chrome.storage.onChanged.addListener(function (changes, namespace) {

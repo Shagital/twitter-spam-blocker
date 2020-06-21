@@ -1,8 +1,3 @@
-var blockTrendWord = false;
-var blockLocation = false;
-var blockCategory = false;
-var blockTweet = false;
-
 var deleteHide = false;
 
 var trendingList = [];
