@@ -1,11 +1,14 @@
 $(document).ready(function () {
     // alert('Ok bummber');
-    var tags = new Tags('#blocked_words'); 
-    $('.select-item').click(function (e) {
+    var blocked_hashtags = new Tags('#blocked_words');
+    var blocked_categories = new Tags('#blocked_categories');
+    var blocked_locations = new Tags('#blocked_locations');
+    var block_regex = new Tags('#block_regex');
+    $('.select-content').click(function (e) {
         // e.preventDefault();
         let attr = $(this).attr('data-attr');
         let id = '#dropdown' + attr;
-        // $(id).toggle();
+        $(id).toggle();
     })
     chrome.storage.local.get(['twitter_block'], function (object) {
         let twitter_block = object.twitter_block
@@ -34,12 +37,17 @@ $(document).ready(function () {
         $('#hide_delete').prop("checked", hide_delete);
 
         $('#blocked_words').val(twitter_block.blocked_words);
+        // alert(twitter_block.block_words.split(","));
+        // alert(typeof Object.entries(twitter_block.blocked_words);
+        // console.log(twitter_block.blocked_words);
+        blocked_hashtags.addTags(twitter_block.blocked_words.split(','));
         $('#blocked_categories').val(twitter_block.blocked_categories);
         $('#blocked_locations').val(twitter_block.blocked_locations);
         $('#block_regex').val(twitter_block.block_regex);
     });
 
-    $("#submitBtn").click(function () {
+    $("#submitBtn").click(function (e) {
+        e.preventDefault();
         $('#info').show()
 
         let block_trend = $('#block_trend').is(":checked")

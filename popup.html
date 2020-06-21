@@ -31,6 +31,12 @@
             src: url(fonts/Inter.ttf);
         }
 
+        @font-face {
+            font-family: 'interBold';
+            font-style: normal;
+            src: url(fonts/Inter-Medium.ttf);
+        }
+
         *,
         body {
             font-family: 'inter', Courier, monospace;
@@ -61,11 +67,11 @@
             /* position: absolute; */
             left: 0;
             width: 100%;
-            padding-top: 10px;
+            /* padding-top: 10px; */
             /* padding-left: 15px; */
             /* padding-right: 15px; */
             /* margin-right: 20px; */
-            margin-top: 20px;
+            /* margin-top: 20px; */
         }
 
         .content-wrapper>h4 {
@@ -293,6 +299,11 @@
             opacity: .7;
         }
 
+        .text-bold {
+            font-family: 'interBold';
+            font-size: 13px;
+        }
+
         input:checked+.slider {
             background-color: #2196F3;
         }
@@ -357,27 +368,34 @@
             margin-bottom: 5px;
             background: #F7F7F7;
             border-bottom: 1px solid #F2F2F2;
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .select-list .select-dropdown {
-            margin-top: 10px;
+            /* margin-top: 10px; */
+            width: 100%;
         }
 
         .select-dropdown input {
-            width: 100%;
+            /* width: 100%;
             height: 40px;
             border: 2px solid #1F7FE5;
             border-radius: 4px;
             outline: none;
             padding-left: 10px;
             margin-right: 20px;
-            box-sizing: border-box;
+            box-sizing: border-box; */
+            background: transparent;
         }
 
         .select-list .select-content {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-left: 20px;
+            padding-right: 20px;
             display: flex;
             justify-content: space-between;
+            border-left: 2px solid #1F7FE5;
         }
 
         .text-left {
@@ -385,7 +403,14 @@
         }
 
         .select-list .select-dropdown {
-            /* display: none; */
+            display: none;
+            /* margin-top: 20px; */
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            padding-bottom: 5px;
+            /* margin-top: 5px; */
+            border-left: 2px solid #961111;
         }
 
         .option {
@@ -446,83 +471,99 @@
             </div>
         </div>
         <div class="content-wrapper">
-            <div class="suggest">
-                <div class="select-list">
-                    <div class="select-item" data-attr="1">
-                        <div class="select-content">
-                            <span class="text-bold">Block by Hashtag </span>
-                            <span>
-                                <b style="font-size:14px">+</b>
-                            </span>
+            <div class="suggest text-left">
+                <form id="twform" action="#">
+                    <p>
+                        <span class="text-opacity text-left pt-2">Select Preference* </span>
+                    </p>
+
+                    <div class="select-list">
+                        <div class="select-item">
+                            <div class="select-content" data-attr="1">
+                                <span class="text-bold">- Block by Hashtag </span>
+                                <span>
+                                    <b style="font-size:14px">+</b>
+                                </span>
+                            </div>
+                            <div class="select-dropdown" id="dropdown1">
+                                <input type="" id="blocked_words" class="tagged" data-removeBtn="true" name="tag-2"
+                                    value="" placeholder="Type hashtags and hit enter" />
+                            </div>
                         </div>
-                        <div class="select-dropdown" id="dropdown1">
-                            <input type="" id="blocked_words" class="taggd" data-removeBtn="true" name="tag-2" value="PC, Play" placeholder="Enter hashtags (Seperate with comma)" />
+                        <div class="select-item">
+                            <div class="select-content" data-attr="2">
+                                <span class="text-bold">- Block By Category</span>
+                                <span>
+                                    <b style="font-size:14px">+</b>
+                                </span>
+                            </div>
+                            <div class="select-dropdown" id="dropdown2">
+                                <input type="" id="blocked_categories" class="tagged" data-removeBtn="true" name="tag-2"
+                                    value="" placeholder="Type categories and hit enter" />
+                            </div>
+                        </div>
+                        <div class="select-item">
+                            <div class="select-content" data-attr="3">
+                                <span class="text-bold">- Block By Location</span>
+                                <span>
+                                    <b style="font-size:14px">+</b>
+                                </span>
+                            </div>
+                            <div class="select-dropdown" id="dropdown3">
+                                <input type="" id="blocked_locations" class="tagged" data-removeBtn="true" name="tag-2"
+                                    value="" placeholder="Type Location and hit enter" />
+                            </div>
+                        </div>
+                        <div class="select-item">
+                            <div class="select-content" data-attr="4">
+                                <span class="text-bold">- Block Tweets</span>
+                                <span>
+                                    <b style="font-size:14px">+</b>
+                                </span>
+                            </div>
+                            <div class="select-dropdown" id="dropdown4">
+                                <input type="" id="block_regex" class="tagged" data-removeBtn="true" name="tag-2"
+                                    value="" placeholder="Type Tweet Block Regex and hit enter" />
+                            </div>
                         </div>
                     </div>
-                    <div class="select-item" data-attr="2">
-                        <div class="select-content">
-                            <span class="text-bold">Block By Category</span>
+                    <!-- <div class="select pt-span text-left">
+                                <span class="text-opacity text-left pt-2">Select Preference* </span>
+                                <div class="pt-2">
+                                    <select>
+                                        <option>Block by Hashtag</option>
+                                        <option>Block by another</option>
+                                    </select>
+                                </div>
+            
+                            </div>
+                            <div style="margin-top:20px;" class="select-text pt-span">
+                                <span class="text-opacity text-left pt-2">Enter Hash tag to be blocked </span>
+                                <div class="select-dropdown pt-2" id="dropdown1">
+                                    <input type="" placeholder="Enter hashtags (Seperate with comma)" />
+                                </div>
+                            </div> -->
+
+                    <div class="text-left" style="margin-bottom:15px;margin-top: 20px">
+                        <span class="text-opacity">Action to perform?</span>
+                        <div class="option">
                             <span>
-                                <b style="font-size:14px">+</b>
+                                <input type="radio" name="hide_delete" id="hide" value="1">
+                                <label for="hide"><span style="padding-left:5px">Hide</span></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="hide_delete" value="2" id="delete">
+                                <label for="delete"><span style="padding-left:5px">Delete</span></label>
                             </span>
                         </div>
-                        <div class="select-dropdown" id="dropdown2">
-                            Another one goes here
-                        </div>
-                    </div>
-                    <div class="select-item" data-attr="3">
-                        <div class="select-content">
-                            <span class="text-bold">Block By Location</span>
-                            <span>
-                                <b style="font-size:14px">+</b>
-                            </span>
-                        </div>
-                        <div class="select-dropdown" id="dropdown3">
-                            Another one goes here
-                        </div>
-                    </div>
-                    <div class="select-item" data-attr="4">
-                        <div class="select-content">
-                            <span class="text-bold">Block Tweets</span>
-                            <span>
-                                <b style="font-size:14px">+</b>
-                            </span>
-                        </div>
-                        <div class="select-dropdown" id="dropdown4">
-                            Another one goes here
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="select pt-span text-left">
-                    <span class="text-opacity text-left pt-2">Select Preference* </span>
-                    <div class="pt-2">
-                        <select>
-                            <option>Block by Hashtag</option>
-                            <option>Block by another</option>
-                        </select>
                     </div>
 
-                </div>
-                <div style="margin-top:20px;" class="select-text pt-span">
-                    <span class="text-opacity text-left pt-2">Enter Hash tag to be blocked </span>
-                    <div class="select-dropdown pt-2" id="dropdown1">
-                        <input type="" placeholder="Enter hashtags (Seperate with comma)" />
-                    </div>
-                </div> -->
+                    <button class="btn btn-block btn-success" type="button" id="submitBtn">Submit Settings</button>
+                </form>
+                <div id="info" class="alert alert-info" style="display: none;">Loading...</div>
+                <div id="error" class="alert alert-danger" style="display: none;">Failed to save...</div>
+                <div id="success" class="alert alert-success" style="display: none;">Settings saved...</div>
 
-                <div class="text-left" style="margin-bottom:15px;margin-top: 20px">
-                    <span class="text-opacity">Action to perform?</span>
-                    <div class="option">
-                        <span>
-                            <input type="radio" name="check" value="1">Hide
-                        </span>
-                        <span>
-                            <input type="radio" name="check" value="2">Delete
-                        </span>
-                    </div>
-                </div>
-
-                <button class="btn">Submit Settings</button>
                 <div class="loader loader--style4" title="3">
                     <svg fill="#D81F26" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px"
@@ -544,16 +585,12 @@
                 </div>
             </div>
 
-            <div class="row text-center" id="netflix-content" style="display: none">
-
-            </div>
-
             <div class="footer">
-                <small>Movie Suggest Chrome Extension- version 1.0</small>
+                <small>Twitter Spam Blocker- version 1.0</small>
             </div>
         </div>
 
-        <section>
+        <!-- <section>
             <div class="content">
                 <div class="container">
                     <form id="twform" action="#">
@@ -622,7 +659,7 @@
                     <br>
                 </div>
             </div>
-        </section>
+        </section> -->
     </div>
 </body>
 
