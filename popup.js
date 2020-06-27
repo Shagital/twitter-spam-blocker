@@ -14,6 +14,8 @@ $(document).ready(function () {
         let twitter_block = object.twitter_block
 
         let hide_delete = twitter_block.hide_delete || 1;
+        let hashtag_limit = twitter_block.hashtag_limit || 1;
+        $('#hashtag_limit').val(hashtag_limit);
         hide_delete == 2 ? $('#hide').prop("checked", true) : $('#delete').prop("checked", true)
 
 
@@ -27,6 +29,7 @@ $(document).ready(function () {
         // e.preventDefault();
         $('#info').show()
 
+        let hashtag_limit = $('#hashtag_limit').val()
         let block_regex = $('#block_regex').val()
         let blocked_words = $('#blocked_words').val()
 
@@ -40,6 +43,7 @@ $(document).ready(function () {
             blocked_words: blocked_words,
             blocked_categories: blocked_categories,
             blocked_locations: blocked_locations,
+            hashtag_limit: hashtag_limit,
         }
         console.log(block_twitter);
         // alert("ok")

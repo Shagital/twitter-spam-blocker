@@ -7,6 +7,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
             blocked_categories: "",
             blocked_locations: "",
             block_regex: "",
+            hashtag_limit: 1,
         }
         chrome.storage.local.set({
             twitter_block: block_twitter
