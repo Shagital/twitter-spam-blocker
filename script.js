@@ -10,7 +10,7 @@ var trendsDom = [];
 var tweetsDom = [];
 
 var trendClass = '#react-root > div > div > div.css-1dbjc4n.r-18u37iz.r-13qz1uu.r-417010 > main > div > div > div > div.css-1dbjc4n.r-aqfbo4.r-zso239.r-1hycxz > div > div.css-1dbjc4n.r-gtdqiz.r-1hycxz > div > div > div > div.css-1dbjc4n.r-1uaug3w.r-1uhd6vh.r-t23y2h.r-1phboty.r-rs99b7.r-ku1wi2.r-1udh08x > div > div > section > div > div > div > div';
-var hashtagClass = 'div.css-901oao.r-jwli3a.r-1qd0xha.r-a023e6.r-vw2c0b.r-ad9z0x.r-bcqeeo.r-vmopo1.r-qvutc0';
+var hashtagClass = '.css-1dbjc4n.r-16y2uox.r-bnwqim';
 
 var tweetClass = 'article';
 var regexObj = {};
@@ -18,7 +18,7 @@ var regexObj = {};
 
 function checkAndStartWatching() {
     chrome.storage.local.get(['twitter_block'], function (object) {
-        let twitter_block = object.twitter_block
+        let twitter_block = object.twitter_block;
 
         blockTweetRegex = twitter_block.block_regex || '';
         deleteHide = twitter_block.hide_delete || 1;
@@ -34,6 +34,7 @@ function checkAndStartWatching() {
             : [];
 
         regexObj = RegExp(blockTweetRegex);
+
         if (
             blockedTrendWords.length
             || blockedLocations.length
@@ -44,6 +45,7 @@ function checkAndStartWatching() {
 }
 
 function startWatching() {
+
     window.setInterval(function () {
         grabTrends();
         grabTweets();
@@ -51,10 +53,9 @@ function startWatching() {
 }
 
 function grabTrends() {
-    var trend = document.querySelector(trendClass)
 
     // sometimes null is returned
-    var trendchildren = trend ? trend.querySelectorAll(hashtagClass) : [];
+    var trendchildren = document.querySelectorAll(hashtagClass);
     trendchildren = Array.from(trendchildren);
 
     // only perform action if dom content has changed and there are actual nodes
@@ -63,6 +64,7 @@ function grabTrends() {
         trendchildren.length
         && diff.length
     ) {
+
         // let's save trending hashtag
         // TODO: Not in use
         for (let trendChild of trendchildren) {
@@ -107,7 +109,7 @@ function deleteTweet(nodes) {
 
 function partialMatch(blockedTrendWords, content) {
     for(let word of blockedTrendWords) {
-        if(word.includes(content) || content.includes(word)) return true;
+        if(word.toLowerCase().includes(content) || content.includes(word.toLowerCase())) return true;
     }
     return false
 }
