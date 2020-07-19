@@ -36,7 +36,7 @@ function checkAndStartWatching() {
             ? twitter_block.blocked_categories.toLowerCase().split(',').map(s => s.trim())
             : [];
 
-        regexObj = RegExp(blockTweetRegex);
+        regexObj = RegExp(blockTweetRegex, 'i');
 
         if (
             blockedTrendWords.length
@@ -91,7 +91,6 @@ function grabTweets() {
 
     let diff = tweets.filter(x => !tweetsDom.includes(x));
     if (diff.length) {
-        //console.error(new Date().toTimeString(), diff)
         tweetsDom = tweets.map((x) => x);
         deleteTweet(tweets);
     }
@@ -120,7 +119,7 @@ function deleteTweet(nodes) {
                 deleteHide == 2
                 && hashtagLimit
                 && (
-                    getNumberOfhashtagInTweet(trendingList, content) > hashtagLimit
+                   intercept > hashtagLimit
                     || findHashtags(content) > hashtagLimit
                 )
             )
