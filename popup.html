@@ -522,13 +522,24 @@
                                 </span>
                             </div>
                             <div style="background-color: white" class="select-dropdown" id="dropdown4">
-                                <input type="text" class="tag-input" id="block_regex" placeholder="Type Tweet Block Regex and hit enter" />
+                                <input type="text" class="tag-input" style="width: 95%" id="block_regex" placeholder="Type Tweet Block Regex and hit enter" />
+                            </div>
+                        </div>
+                        <div class="select-item">
+                            <div class="select-content" data-attr="5">
+                                <span class="text-bold">- Max Hashtag</span>
+                                <span>
+                                    <b style="font-size:14px">+</b>
+                                </span>
+                            </div>
+                            <div style="background-color: white" class="select-dropdown" id="dropdown5">
+                                <input type="number" class="tag-input" style="width: 95%" id="hashtag_limit" placeholder="max hashtag of valid tweet" />
                             </div>
                         </div>
                     </div>
 
                     <div class="text-left" style="margin-bottom:15px;margin-top: 20px">
-                        <span class="text-opacity">Block Spam Tweet?</span>
+                        <span class="text-opacity">Block Spam Tweet? <small>remember to set max hashtag above</small></span>
                         <div class="option">
                             <span>
                                 <input type="radio" checked name="hide_delete" id="hide" value="2">
@@ -539,6 +550,7 @@
                                 <label for="delete"><span style="padding-left:5px">No</span></label>
                             </span>
                         </div>
+
                     </div>
 
                     <button class="btn btn-block btn-success" type="button" id="submitBtn">Submit Settings</button>

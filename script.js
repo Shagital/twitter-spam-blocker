@@ -14,6 +14,7 @@ var hashtagClass = '.css-1dbjc4n.r-16y2uox.r-bnwqim';
 
 var tweetClass = 'article';
 var regexObj = {};
+var hashtagLimit = 1;
 
 
 function checkAndStartWatching() {
@@ -21,7 +22,9 @@ function checkAndStartWatching() {
         let twitter_block = object.twitter_block;
 
         blockTweetRegex = twitter_block.block_regex || '';
+        //console.warn('regex', blockTweetRegex);
         deleteHide = twitter_block.hide_delete || 1;
+        hashtagLimit = twitter_block.hashtag_limit || 1;
 
         blockedTrendWords = twitter_block.blocked_words
             ? twitter_block.blocked_words.toLowerCase().split(',').map(s => s.trim())
@@ -47,12 +50,14 @@ function checkAndStartWatching() {
 function startWatching() {
 
     window.setInterval(function () {
-        grabTrends();
-        grabTweets();
+        grabTrends().then((trends) => {
+            deleteBlocked(trends);
+            grabTweets();
+        });
     }, 100);
 }
 
-function grabTrends() {
+async function grabTrends() {
 
     // sometimes null is returned
     var trendchildren = document.querySelectorAll(hashtagClass);
@@ -74,8 +79,10 @@ function grabTrends() {
         }
 
         trendsDom = trendchildren;
-        deleteBlocked(trendchildren);
+
+        return trendchildren;
     }
+    return [];
 }
 
 function grabTweets() {
@@ -90,21 +97,52 @@ function grabTweets() {
     }
 }
 
+function getNumberOfhashtagInTweet(trending, string) {
+    let intercept = 0;
+    for (let t of trending) {
+        if (string.includes(t)) {
+            intercept++;
+        }
+    }
+
+    return intercept;
+}
 
 function deleteTweet(nodes) {
     for (let node of nodes) {
         let content = node.textContent.trim();
 
-        let intercept = content.split(' ').filter(x => trendingList.includes(x));
-        //console.warn('deleteHide', deleteHide, 'trendingList', trendingList, 'intersect',intercept);
+        let intercept = getNumberOfhashtagInTweet(trendingList, content);
+        //console.warn('deleteHide', deleteHide, 'intercept', intercept, 'hashtagLimit', hashtagLimit);
         if (
             (blockTweetRegex && regexObj.test(content))
-            || (deleteHide === 2 && intercept.length > 1)
+            || (
+                deleteHide == 2
+                && hashtagLimit
+                && (
+                    getNumberOfhashtagInTweet(trendingList, content) > hashtagLimit
+                    || findHashtags(content) > hashtagLimit
+                )
+            )
         ) {
+            // console.warn('got here');
             node.style.display = 'none';
         }
 
     }
+}
+
+function findHashtags(searchText) {
+    var regexp = /(\s|^)\#\w\w+\b/gm
+    let result = searchText.match(regexp);
+    if (result) {
+        result = result.map(function (s) {
+            return s.trim();
+        });
+        //console.log(result);
+        return result.length;
+    }
+    return 0;
 }
 
 function partialMatch(blockedTrendWords, content) {
