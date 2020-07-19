@@ -163,7 +163,11 @@ function deleteBlocked(nodes) {
             || (location && blockedLocations.includes(location))
             || (category && blockedCategories.includes(category))
         ) {
-            node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode)
+            try{
+                node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode)
+            } catch (e) {
+                
+            }
         }
 
     }
