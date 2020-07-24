@@ -159,15 +159,14 @@ function deleteBlocked(nodes) {
         let category = getCategory(trendingText);
 
         if (
-            (partialMatch(blockedTrendWords, content))
-            || (location && blockedLocations.includes(location))
-            || (category && blockedCategories.includes(category))
+            content
+            && (
+                (partialMatch(blockedTrendWords, content))
+                || (location && blockedLocations && blockedLocations.includes(location))
+                || (category && blockedCategories && blockedCategories.includes(category))
+            )
         ) {
-            try{
-                node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode)
-            } catch (e) {
-                
-            }
+            node.parentNode.parentNode.removeChild(node.parentNode)
         }
 
     }
